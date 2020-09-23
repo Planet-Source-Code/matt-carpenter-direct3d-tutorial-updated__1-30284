@@ -1,0 +1,1131 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Direct3D For Dummiez</title>
+</head>
+
+<body topmargin="5" leftmargin="5">
+
+<table border="0" width="100%" bgcolor="#000000" cellspacing="1" cellpadding="0">
+  <tr>
+    <td width="100%" bgcolor="#E4E4E4">
+      <p align="center"><font face="Verdana" size="6"><i><b>Direct3D For Dummiez
+      (In VB6)</b></i></font></p>
+      <hr>
+      <p align="left"><font face="Verdana" size="2"><b>Well, don't take this
+      title offensive. If you were smart enough to DL this tutorial, your not a dummy!<br>
+      <br>
+      This simple tutorial will teach you how to use Direct3D and how to make
+      games in it. If you like this, please vote for me!&nbsp;</b></font></p>
+      <p align="left"><b><font face="Verdana" size="5">Chapter 1: About DirectX
+      &amp; Direct3D<br>
+      </font><font face="Verdana" size="2">Ok, well be using Direct3D 7 because
+      it's near the top of the line, but easier to use than DX8. Once you learn
+      DX7, you can move up to DX8, which won't be very hard.<br>
+      <br>
+      DirectX-</font></b><font face="Verdana" size="2"> Collection of Direct3D,
+      DirectDraw, DirectInput, DirectSound, DirectMusic, Direct whatever else
+      there is...<br>
+      <br>
+      <b>Direct Draw- </b>Library of drawing functions made generally for
+      drawing stuff on your screen. (Duh...)<br>
+      <br>
+      <b>Direct3D-&nbsp;</b> Direct3D is built on DirectDraw, and it provides
+      many 3D drawing functions and all sorts of good stuff like that.<br>
+      <br>
+      <b>DirectInput: </b>Allows your games to use the keyboard, mouse,
+      force-feedback joy sticks, normal joy-sticks, control pads, steering wheels,
+      and almost everything else.&nbsp;<br>
+      <br>
+      <b>DirectSound: </b>Plays sound in 2d stereo, 2d mono, or 3D Stereo. Also
+      provides effects that work with D3D (Like the Doppler effect)<br>
+      <br>
+      Direct3D Has 2 modes. IM (immediate Mode) which is faster, but every
+      triangle/polygon has to be hard-coded into the program,&nbsp; and RM
+      (Retained Mode) The upper end to IM, allows you to load objects directly
+      from the hard drive. MM (Mixed-Mode) doesn't exist, but Microsoft is considering
+      to make one which will mix the two modes, to make games more flexible.<br>
+      <br>
+      <b>FYI, a Direct3D Game code would look roughly something like this:<br>
+      &nbsp; </b><font color="#000080">Declare your variables and DirectX
+      Objects<br>
+      &nbsp; </font><font color="#0000FF">Form_Load()</font><font color="#000080"><br>
+      &nbsp;&nbsp; Initiate DirectX (DirectDraw and Direct3D, screen size,
+      render quality, ext...)<br>
+      &nbsp;&nbsp; Create Objects (Load your objects from files, set where they
+      go, ext...)<br>
+      &nbsp;&nbsp; Run Main game loop (Checks for user input, draws graphics,
+      ext...)<br>
+      &nbsp;&nbsp; Computer Possession Code (Your computer becomes possessed and
+      rampages through your house because it likes&nbsp;<br>
+      &nbsp;&nbsp; your awesome direct3D game too much.)&nbsp;<br>
+      &nbsp; </font><font color="#0000FF">End Sub</font></font></p>
+      <p align="left"><font face="Verdana" size="2" color="#000000"><b>A More
+      detailed example of what a D3D Code would look like:</b></font></p>
+      <div align="center">
+        <center>
+        <table border="0" width="87%" bgcolor="#000000" cellspacing="1" cellpadding="0">
+          <tr>
+            <td width="100%" bgcolor="#FFFFFF"><font face="Verdana" size="2" color="#008000">'Declare
+              all the variables, DirectX Objects, frames, and stuff in this
+              general declarations area...&nbsp;<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#000080">Private Sub </font><font face="Verdana" size="2" color="#000000">Form_Load()<br>
+              &nbsp;DoEvents&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </font><font face="Verdana" size="2" color="#008000">'Let the
+              computer have time to do what it needs to do...</font><font face="Verdana" size="2" color="#000000"><br>
+              &nbsp;DX_Init&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </font><font face="Verdana" size="2" color="#008000">'Initialize
+              DirectDraw and Direct3D</font><font face="Verdana" size="2" color="#000000"><br>
+              &nbsp;DX_MakeObjects&nbsp; </font><font face="Verdana" size="2" color="#008000">'Load
+              the lights and objects</font><font face="Verdana" size="2" color="#000000"><br>
+              &nbsp;DX_Render&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </font><font face="Verdana" size="2" color="#008000">'Start the
+              main loop</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub<br>
+              <br>
+              Private Sub </font><font face="Verdana" size="2" color="#000000">DX_Init()<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#008000">'Initialize
+              DirectDraw and Direct3D<br>
+              &nbsp;'Also, set how big the drawing area is, background color,
+              fog, and all that good stuff.<br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub<br>
+              <br>
+              Private Sub </font><font face="Verdana" size="2" color="#000000">DX_MakeObjects()<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#008000">'Make
+              the frames (Each object is put in a frame. There is the root
+              frame, where everything else is placed under<br>
+              &nbsp;'it in a tree hierarchy.&nbsp;<br>
+              &nbsp;'Make the 'MainFrame' frame<br>
+              &nbsp;'Make the 'LightFrame' frame and make it link to 'MainFrame'<br>
+              &nbsp;'Make the 'Camera' Frame and make it link to 'MainFrame'<br>
+              &nbsp;'Make the 'FirstObject' frame and make it link to
+              'MainFrame'<br>
+              &nbsp;'Note: Call your frames what ever you want.<br>
+              &nbsp;'Set your Camera Frame and set it as a viewport (which is
+              where you see the images, like a camera)<br>
+              &nbsp;'Now, set up the main (</font><font face="Verdana" size="2" color="#008000">Ambient)
+              light, and maybe a 'point' light (to make it more realistic)<br>
+              &nbsp;'Load your object from a file and add it to it's frame
+              ('FirstObject' in this case)&nbsp;<br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub<br>
+              <br>
+              Private Sub </font><font face="Verdana" size="2" color="#000000">DX_Render()<br>
+              &nbsp;Do<br>
+              &nbsp;&nbsp; DoEvents&nbsp;</font><font face="Verdana" size="2" color="#008000">&nbsp;&nbsp;&nbsp;
+              'Give the computer time to do what it needs to do.<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">DX_Input&nbsp;&nbsp;&nbsp;&nbsp;
+              </font><font face="Verdana" size="2" color="#008000">'Call the
+              DirectInput sub, to check for keys pressed (like left, right, up,
+              down) and run code for&nbsp;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'them.&nbsp;<br>
+              &nbsp;&nbsp; 'Clear the viewport (screen)<br>
+              &nbsp;&nbsp; 'Update the Direct3D Device<br>
+              &nbsp;&nbsp; 'Render the image on the backbuffer [render the
+              'MainFrame' tree]<br>
+              &nbsp;&nbsp; 'Swap the back buffer with the front buffer (Images
+              are drawn on the back buffer before they are put on the&nbsp;<br>
+              &nbsp;&nbsp; 'front buffer (which is the actual screen) to make
+              the rendering more smooth with the whole image/frame&nbsp;<br>
+              &nbsp;&nbsp; 'appearing at once, instead of pieces appearing at a
+              time)&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">Loop<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#000080">Private Sub </font><font face="Verdana" size="2" color="#000000">DX_Input<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#008000">'Get
+              the DirectInput Keyboard thingy<br>
+              &nbsp;'Run the code and see what keys have been pressed. If for
+              example, the left arrow key was pressed,&nbsp;<br>
+              &nbsp;'Make the viewport/camera turn left some.&nbsp;<br>
+              &nbsp;'If for example, escape [esc] was pressed, end the
+              program...<br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub</font><font face="Verdana" size="2" color="#008000">&nbsp;<br>
+              &nbsp;&nbsp;</font></td>
+          </tr>
+        </table>
+        </center>
+      </div>
+      <p align="left"><b><font face="Verdana" size="2" color="#000000"><br>
+      </font><font face="Verdana" size="5" color="#000000">Chapter 2: Setting Up
+      DirectDraw and Direct3D<br>
+      </font><font face="Verdana" color="#000000" size="2">This example program
+      let's you walk around a 3D Building. I Included with this tutorial the
+      source code (in a vb6 project) for this program, and a little file called
+      'building.x' this is the mesh file used for this program. the .x extension
+      means DirectX mesh files.</font></b></p>
+      <hr>
+      <p align="left"><b><font face="Verdana" color="#000000" size="2">For DirectX to work
+      with your program, you need to make some DirectX objects for DirectDraw,
+      Direct3D, and DirectInput. First, I'll show you what needs to be declared
+      in the 'General Declarations' Section. OK! It's time to start your first
+      3D Program! &nbsp; First, open up Visual Basic,
+      and make a new project. Click the 'project' menu, then click
+      'References...'. Add the 'DirectX7 For Visual Basic Type Library' .&nbsp;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp; Now, Go to the 'General Declarations' in your form1. Then, Put this next code
+      in it. (Please read this, don't just copy and paste it. If you read it,
+      you will understand what is happening here better ;))</font></b></p>
+      <div align="center">
+        <center>
+        <table border="0" width="87%" cellspacing="1" cellpadding="0" bgcolor="#000000">
+          <tr>
+            <td width="100%" bgcolor="#FFFFFF"><font color="#008000" face="Verdana" size="2">'General
+              Declarations<br>
+              </font><br>
+              '<font face="Verdana" size="2" color="#008000">These three components
+              are the big daddy of what your 3D Program.&nbsp;<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DX_Main </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000">
+              </font><font face="Verdana" size="2" color="#000080"> New</font><font face="Verdana" size="2" color="#000000"> DirectX7
+              </font><font face="Verdana" size="2" color="#008000">          ' The DirectX core file
+              (The heart of it all)</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DD_Main </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DirectDraw4
+              </font><font face="Verdana" size="2" color="#008000">           ' The
+              DirectDraw Object</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              D3D_Main </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> Direct3DRM3</font><font face="Verdana" size="2" color="#008000">           ' The direct3D
+              Object</font><font face="Verdana" size="2" color="#000000"><br>
+              <br>
+              </font><font face="Verdana" size="2" color="#008000">'DirectInput Components<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DI_Main </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DirectInput
+              </font><font face="Verdana" size="2" color="#008000">           ' The DirectInput
+              core&nbsp;</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DI_Device </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DirectInputDevice
+              </font><font color="#008000"><font face="Verdana" size="2">   ' The
+              DirectInput device</font></font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DI_State </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DIKEYBOARDSTATE
+              </font><font face="Verdana" size="2" color="#008000">'Array
+              Holding the state of the keys<br>
+              <br>
+              'DirectDraw Surfaces- Where the screen is drawn.<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DS_Front </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DirectDrawSurface4
+              </font><font face="Verdana" size="2" color="#008000">    ' The
+              frontbuffer (What you see on the screen)</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DS_Back </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DirectDrawSurface4
+              </font><font face="Verdana" size="2" color="#008000">    ' The
+              backbuffer, (Where everything is drawn before it's put on the
+              screen.)</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              SD_Front </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DDSURFACEDESC2
+              </font><font face="Verdana" size="2" color="#008000">        ' The
+              SurfaceDescription</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DD_Back </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DDSCAPS2
+              </font><font face="Verdana" size="2" color="#008000">' General
+              Surface Info<br>
+              <br>
+              'ViewPort and Direct3D Device<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">D3D_Device
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMDevice3
+              </font><font face="Verdana" size="2" color="#008000">'The Main
+              Direct3D Retained Mode Device</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">D3D_ViewPort
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMViewport2
+              </font><font face="Verdana" size="2" color="#008000">'The Direct3D
+              Retained Mode Viewport (Kinda the camera)&nbsp;<br>
+              <br>
+              'The Frames&nbsp;<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">FR_Root
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMFrame3
+              </font><font face="Verdana" size="2" color="#008000">'The Main
+              Frame (The other frames are put under this one (Like a tree))<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">FR_Camera
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMFrame3
+              </font><font face="Verdana" size="2" color="#008000">'Another
+              frame, just happens to be called 'camera'. We will use this<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'as the viewport. Hence, the name camera. Doesn't have to be<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'called 'camera'. It could be called 'BillyBob' for all I
+              care.&nbsp;<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">FR_Light
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMFrame3
+              </font><font face="Verdana" size="2" color="#008000">'This frame contains
+              our, guess what, spotlight!<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">FR_Building
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMFrame3
+              </font><font face="Verdana" size="2" color="#008000">'Frame
+              containing our 1st mesh that will be put in this
+              &quot;game&quot;.&nbsp;<br>
+              <br>
+              'Meshes (3D objects loaded from a .x file)<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">MS_Building
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMMeshBuilder3<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#008000">'Lights<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">LT_Ambient
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMLight
+              </font><font face="Verdana" size="2" color="#008000">'Our Main
+              (Ambient) light that illuminates everything (not just part of
+              something<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'like a spotlight.&nbsp;<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">LT_Spot
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMLight
+              </font><font face="Verdana" size="2" color="#008000">'Our Spot
+              light, makes it look more realistic.&nbsp;<br>
+              <br>
+              'Camera Positions<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000000"> xx</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000080"> Long</font><font face="Verdana" size="2" color="#008000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000000"> yy</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000080"> Long</font><font face="Verdana" size="2" color="#008000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000000"> zz</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000080"> Long<br>
+              <br>
+              Dim </font><font face="Verdana" size="2" color="#000000">esc </font><font face="Verdana" size="2" color="#000080">As
+              Boolean </font><font face="Verdana" size="2" color="#008000">'If
+              Escape is pressed, the DX_Input sub will make it true and the main
+              loop will end.&nbsp;</font><font face="Verdana" size="2" color="#000080"><br>
+              </font><font face="Verdana" size="2" color="#008000">'Incase you haven't
+              caught on, the prefix FR = frame, MS = Mesh, &amp; LT =
+              light.&nbsp;</font></td>
+          </tr>
+        </table>
+        </center>
+      </div>
+      <p align="left"><b><font face="Verdana" color="#000000" size="2">Yay! You
+      just declared your declarations! Let's Party! Oh, wait, were not done yet.&nbsp;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp; Now that you declared your DirectDraw, Direct3D, and DirectInput stuff,
+      let's initialize (or is the word I'm looking for initiate?) it. (Meaning set it all up and that kind of stuff.) Now,
+      make a sub called DX_Init.&nbsp; Now, Type (Not copy and paste) this next code in. If
+      you read it word for word, AND type it word for word, you will begin to
+      understand it much better! (It's proven by scientist peoples that it
+      helps)&nbsp;</font></b></p>
+      <div align="center">
+        <center>
+        <table border="0" width="87%" bgcolor="#000000" cellspacing="1" cellpadding="0">
+          <tr>
+            <td width="100%" bgcolor="#FFFFFF"><font face="Verdana" size="2" color="#000080">Private
+              Sub </font><font face="Verdana" size="2" color="#000000">DX_Init()<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#008000">'Type,
+              not copy and paste!<br>
+              &nbsp;'This sub will initialize all your components and set them
+              up.&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">set</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000000">DD_Main =
+              DX_Main.DirectDraw4Create(&quot;&quot;) </font><font face="Verdana" size="2" color="#008000">'Create
+              the DirectDraw Object<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#000000">&nbsp;DD_Main.SetCooperativeLevel Form1.hWnd, DDSCL_FULLSCREEN
+              </font><font face="Verdana" size="2" color="#000080"> Or</font><font face="Verdana" size="2" color="#000000"> DDSCL_EXCLUSIVE
+              </font><font face="Verdana" size="2" color="#008000">'Set Screen
+              Mode (Full&nbsp; 'Screen)</font><font face="Verdana" size="2" color="#000000"><br>
+              &nbsp;DD_main.SetDisplayMode 640, 480, 32, 0, DDSDM_DEFAULT </font><font face="Verdana" size="2" color="#008000">'Set
+              Resolution and BitDepth (Lets use 32-bit color)<br>
+              &nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">SD_Front.lFlags = DDSD_CAPS
+              </font><font face="Verdana" size="2" color="#000080"> Or</font><font face="Verdana" size="2" color="#000000"> DDSD_BACKBUFFERCOUNT<br>
+              &nbsp;SD_Front.ddsCaps.lCaps = DDSCAPS_PRIMARYSURFACE Or DDSCAPS_3DDEVICE Or DDSCAPS_COMPLEX
+              OR _<br>
+              &nbsp;DDSCAPS_FLIP </font><font face="Verdana" size="2" color="#008000">'I
+              used the line-continuation ( _ ) because the whole thing wouldn't
+              fit on one line...</font><font face="Verdana" size="2" color="#000000"><br>
+              &nbsp;SD_Front.lBackBufferCount = 1 '</font><font face="Verdana" size="2" color="#008000">Make
+              one backbuffer&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              DS_Front = DD_Main.CreateSurface(SD_Front) </font><font face="Verdana" size="2" color="#008000">'Initialize
+              the front buffer (the screen)<br>
+              &nbsp;'The Previous block of code just created the screen and the
+              backbuffer.&nbsp;<br>
+              &nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DD_Back.lCaps = DDSCAPS_BACKBUFFER<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              DS_Back = DS_Front.GetAttachedSurface(DD_Back)<br>
+              &nbsp;DS_Back.SetForeColor RGB(255, 255, 255)<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#008000">'The
+              backbuffer was initialized and the DirectDraw text color was set
+              to white.&nbsp;<br>
+              <br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              D3D_Main = DX_Main.Direct3DRMCreate() </font><font face="Verdana" size="2" color="#008000">'Creates
+              the Direct3D Retained Mode Object!!!!!<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#000000">&nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              D3D_Device =
+              D3D_Main.CreateDeviceFromSurface(&quot;IID_IDirect3DHALDevice&quot;,
+              DD_Main, DS_Back, _<br>
+              &nbsp;D3DRMDEVICE_DEFAULT) </font><font face="Verdana" size="2" color="#008000">'Tell
+              the Direct3D Device that we are using hardware rendering
+              (HALDevice) instead<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'of software enumeration (RGBDevice).<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">D3D_Device.SetBufferCount 2</font><font face="Verdana" size="2" color="#008000">
+              'Set the number of buffers<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">D3D_Device.SetQuality D3DRMRENDER_GOURAUD
+              </font><font face="Verdana" size="2" color="#008000">'Set
+              Rendering Quality. Can use Flat, or WireFrame, but<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'GOURAUD has the best rendering quality.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">D3D_</font><font color="#000000"><font face="Verdana" size="2">Device.SetTextureQuality D3DRMTEXTURE_NEAREST</font><font face="Verdana" size="2">
+              </font></font><font face="Verdana" size="2" color="#008000">'Set
+              the texture quality<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">D3D_</font><font face="Verdana" size="2" color="#000000">Device.SetRenderMode D3DRMRENDERMODE_BLENDEDTRANSPARENCY
+              </font><font face="Verdana" size="2" color="#008000">'Set the
+              render mode.<br>
+              <br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">Set
+              DI_Main = DX_Main.DirectInputCreate() </font><font face="Verdana" size="2" color="#008000">'Create
+              the DirectInput Device<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">Set
+              DI_Device = DI_Main.CreateDevice(&quot;GUID_SysKeyboard&quot;) </font><font face="Verdana" size="2" color="#008000">'Set
+              it to use the keyboard.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DI_Device.SetCommonDataFormat DIFORMAT_KEYBOARD
+              </font><font face="Verdana" size="2" color="#008000">'Set the data
+              format to the keyboard format.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DI_Device.SetCooperativeLevel Me.hWnd, DISCL_BACKGROUND Or DISCL_NONEXCLUSIVE
+              </font><font face="Verdana" size="2" color="#008000">'Set
+              Coperative Level.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DI_Device.Acquire<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#008000">'The
+              above block of code configures the DirectInput Device and starts
+              it.<br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub</font></td>
+          </tr>
+        </table>
+        </center>
+      </div>
+      <p align="left"><b><font face="Verdana" color="#000000" size="5">Chapter
+      3: Let's set up our world!</font><font face="Verdana" color="#000000" size="2"><br>
+      OK, Now you should have all your general declarations, and a sub called
+      'DX_Init&quot; with the above code in it. That's a good start, but we need
+      to create the frames, meshes, and stuff like that, so make a new sub
+      called 'DX_MakeObjects'. Add this next code to it.&nbsp;</font></b></p>
+      <div align="center">
+        <center>
+        <table border="0" width="87%" bgcolor="#000000" cellspacing="1" cellpadding="0">
+          <tr>
+            <td width="100%" bgcolor="#FFFFFF"><font face="Verdana" size="2" color="#000080">Private
+              Sub </font><font face="Verdana" size="2" color="#000000">DX_MakeObjects()<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set </font><font face="Verdana" size="2" color="#000000">FR_Root
+              = D3D_Main.CreateFrame(</font><font face="Verdana" size="2" color="#000080">Nothing</font><font face="Verdana" size="2" color="#000000">)
+              </font><font face="Verdana" size="2" color="#008000">'This will be
+              the root frame of the 'tree'<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set </font><font face="Verdana" size="2" color="#000000">FR_Camera
+              = D3D_Main.CreateFrame(FR_Root) </font><font face="Verdana" size="2" color="#008000">'Our
+              Camera's Sub Frame. It goes under FR_Root in the 'Tree'.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set </font><font face="Verdana" size="2" color="#000000">FR_Light
+              = D3D_Main.CreateFrame(FR_Root) </font><font face="Verdana" size="2" color="#008000">'Our
+              Light's Sub Frame<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set </font><font face="Verdana" size="2" color="#000000">FR_Building
+              = D3D_Main.CreateFrame(FR_Root) </font><font face="Verdana" size="2" color="#008000">'Our
+              Building (the 3D Thingy that will be placed in our world's)&nbsp;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              ' sub frame.&nbsp;<br>
+              &nbsp;'That above code set up the hierarchy of frames where
+              FR_Root is the parent, and the other frames are all&nbsp;<br>
+              &nbsp;'owned by it.<br>
+              &nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">FR_Root.SetSceneBackgroundRGB
+              0, 0, 1 </font><font face="Verdana" size="2" color="#008000">'Set
+              the background color. Use decimals, not the standerd 255 = max.<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'What I have here will make the background/sky 100% blue.&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">FR_Camera.SetPosition Nothing,
+              1, 4, -35 </font><font face="Verdana" size="2" color="#008000">'Set
+              The Camera position; X=1, Y=4, z=-35.&nbsp;</font><font face="Verdana" size="2" color="#008000"><br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">Set
+              D3D_Viewport = D3D_Main.CreateViewport(D3D_Device, FR_Camera, 0, 0, 640, 480)
+              </font><font face="Verdana" size="2" color="#008000">'Make our
+              viewport and 'set&nbsp;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'it our camera to be it.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">D3D_Viewport.SetBack
+              200 </font><font face="Verdana" size="2" color="#008000">'How far
+              back it will draw the image. (Kinda like a visibility limit)<br>
+              &nbsp;&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">FR_Light.SetPosition Nothing, 0, 25, 0
+              </font><font face="Verdana" size="2" color="#008000">'Set our
+              'point' light.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              LT_Spot = D3D_Main.CreateLightRGB(D3DRMLIGHT_POINT, 1, 1, 1) </font><font face="Verdana" size="2" color="#008000">'Set
+              the light type and it's color.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">FR_Light.AddLight</font><font face="Verdana" size="2" color="#008000">
+              LT_Spot 'Add the light to it's frame.<br>
+              &nbsp;&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              LT_Ambient = D3D_Main.CreateLightRGB(D3DRMLIGHT_AMBIENT, 0.5, 0.5, 0.5)
+              </font><font face="Verdana" size="2" color="#008000">'Create our
+              ambient light.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">FR_Root.AddLight
+              LT_Ambient </font><font face="Verdana" size="2" color="#008000">'Add
+              the ambient light to the root frame.<br>
+              <br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              MS_Building = D3D_Main.CreateMeshBuilder() </font><font face="Verdana" size="2" color="#008000">'Make
+              the 3D Building Mesh<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">MS_Building.LoadFromFile
+              app.path &amp; &quot;\building.x&quot;,0 ,0 ,</font><font face="Verdana" size="2" color="#000080">nothing</font><font face="Verdana" size="2" color="#000000">
+              ,</font><font face="Verdana" size="2" color="#000080">nothing </font><font face="Verdana" size="2" color="#008000">'Load
+              our building mesh from its .X file.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">MS_Building.ScaleMesh
+              1, 1, 1 </font><font face="Verdana" size="2" color="#008000">'Set
+              the it's scale. This is used to make the object smaller or bigger.
+              1 makes<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'it the same size as it was built in whatever program it was built
+              in.&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">FR_Building.AddVisual
+              MS_Building </font><font face="Verdana" size="2" color="#008000">'Add
+              the 3D Building mesh to it's frame.&nbsp;<br>
+              </font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub</font><font face="Verdana" size="2" color="#000000">&nbsp;&nbsp;</font></td>
+          </tr>
+        </table>
+        </center>
+      </div>
+      <p align="left"><b><font face="Verdana" color="#000000" size="5">Chapter
+      4: Render your masterpiece</font><font face="Verdana" color="#000000" size="2"><br>
+      Now, the code that you have sets up your frames, background color, lights,
+      and your one object. To make these objects appear on the screen, we need
+      the main loop which draws the images at a rate of 20 to 120 frames per
+      second (FPS). Make a sub called 'DX_Render'. Put this next code in
+      it.&nbsp;&nbsp;</font></b></p>
+      <div align="center">
+        <center>
+        <table border="0" width="87%" bgcolor="#000000" cellspacing="1" cellpadding="0">
+          <tr>
+            <td width="100%" bgcolor="#FFFFFF"><font color="#000080" face="Verdana" size="2">Private
+              Sub </font><font face="Verdana" size="2" color="#000000">DX_Render()<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#008000">'Lets
+              put our main loop. Make it loop until esc = true (I'll explain
+              later)<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Do
+              While </font><font face="Verdana" size="2" color="#000000">esc = </font><font face="Verdana" size="2" color="#000080">False<br>
+              &nbsp;&nbsp; On local error resume next </font><font face="Verdana" size="2" color="#008000">'Incase
+              there is an error<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000080">DoEvents
+              </font><font face="Verdana" size="2" color="#008000">'Give the
+              computer time to do what it needs to do.&nbsp;<br>
+              &nbsp;&nbsp;&nbsp;<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">DX_Input
+              </font><font face="Verdana" size="2" color="#008000">'Call the
+              input sub.&nbsp;<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">D3D_Viewport.Clear D3DRMCLEAR_TARGET Or D3DRMCLEAR_ZBUFFER</font><font face="Verdana" size="2" color="#008000">
+              'Clear your viewport.&nbsp;<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">D3D_Device.Update</font><font face="Verdana" size="2" color="#008000">
+              'Update the Direct3D Device.&nbsp;<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">D3D_</font><font face="Verdana" size="2" color="#000000">Viewport.Render
+              FR_Root</font><font face="Verdana" size="2" color="#008000">
+              'Render the 3D Objects (lights, and your building!)<br>
+              &nbsp;&nbsp;</font><font face="Verdana" size="2" color="#000000">
+              DS_Back.DrawText 200, 0, &quot;My First Direct3D Program!&quot;, False
+              </font><font face="Verdana" size="2" color="#008000">'Draw some
+              text!&nbsp;<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">DS_Front.Flip Nothing, DDFLIP_WAIT</font><font face="Verdana" size="2" color="#008000">
+              'Flip the back buffer with the front buffer.&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Loop<br>
+              End Sub</font></td>
+          </tr>
+        </table>
+        </center>
+      </div>
+      <p align="left"><b><font face="Verdana" color="#000000" size="2">*Pant*
+      *Pant* All *pant* most *pant* there...<br>
+      Just 3 more subs to go! Now, make a sub called 'DX_Input' then add the
+      following code:</font></b></p>
+      <div align="center">
+        <center>
+        <table border="0" width="87%" bgcolor="#000000" cellspacing="1" cellpadding="0">
+          <tr>
+            <td width="100%" bgcolor="#FFFFFF"><font face="Verdana" size="2" color="#000080">Private
+              Sub </font><font face="Verdana" size="2" color="#000000">DX_Input()<br>
+              &nbsp;DI_Device.GetDeviceStateKeyboard DI_State </font><font face="Verdana" size="2" color="#008000">'Get
+              the array of keyboard keys and their current states<br>
+              &nbsp;&nbsp;</font><font face="Verdana" size="2" color="#000080"><br>
+              &nbsp;If</font><font face="Verdana" size="2" color="#000000">
+              DI_State.Key(DIK_ESCAPE) &lt;> 0 </font><font face="Verdana" size="2" color="#000080"> Then</font><font face="Verdana" size="2" color="#000000">
+              </font><font face="Verdana" size="2" color="#000080"> Call</font><font face="Verdana" size="2" color="#000000"> DX_Exit</font><font face="Verdana" size="2" color="#008000">
+              'If user presses [esc] then exit end the program.<br>
+              &nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">If </font><font face="Verdana" size="2" color="#000000">DI_State.Key(DIK_LEFT)
+              &lt;&gt; 0 </font><font face="Verdana" size="2" color="#000080">Then
+              </font><font face="Verdana" size="2" color="#008000">'Quick Note:
+              &lt;&gt; means 'does not'</font><font face="Verdana" size="2" color="#000080"><br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">FR_Camera.SetPosition
+              FR_Camera, -1, 0, 0 </font><font face="Verdana" size="2" color="#008000">'Move
+              the viewport to the left<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">end if<br>
+              &nbsp;<br>
+              &nbsp;If </font><font face="Verdana" size="2" color="#000000">DI_State.Key(DIK_RIGHT)
+              &lt;&gt; 0 </font><font face="Verdana" size="2" color="#000080">Then<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">FR_Camera.SetPosition
+              FR_Camera, 1, 0, 0 </font><font face="Verdana" size="2" color="#008000">'Move
+              the viewport to the right<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">End If<br>
+              &nbsp;<br>
+              &nbsp;If </font><font face="Verdana" size="2" color="#000000">DI_State.Key(DIK_UP)
+              &lt;&gt; 0 </font><font face="Verdana" size="2" color="#000080">Then</font><font face="Verdana" size="2" color="#008000"><br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">FR_Camera.SetPosition
+              FR_Camera, 0, 0, 1 </font><font face="Verdana" size="2" color="#008000">'Move
+              the viewport forward<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">End If<br>
+              <br>
+              &nbsp;If </font><font face="Verdana" size="2" color="#000000">DI_State.Key(DIK_DOWN)
+              &lt;&gt; 0 </font><font face="Verdana" size="2" color="#000080">then</font><font face="Verdana" size="2" color="#000000">&nbsp;<br>
+              &nbsp;&nbsp; FR_Camera.SetPosition FR_Camera, 0, 0, -1 </font><font face="Verdana" size="2" color="#008000">'Move
+              the viewport back<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">End If</font><font face="Verdana" size="2" color="#008000">&nbsp;&nbsp;<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub</font></td>
+          </tr>
+        </table>
+        </center>
+      </div>
+      <p align="left"><b><font face="Verdana" color="#000000" size="5">Chapter
+      5: Finishing Touches<br>
+      </font><font face="Verdana" color="#000000" size="2">Now, make a sub
+      called 'DX_Exit' This will run when the user presses escape. It unloads
+      the DirectX objects and returns the screen resolution and stuff back to
+      normal, then ends the program.&nbsp;</font></b></p>
+      <div align="center">
+        <center>
+        <table border="0" width="87%" bgcolor="#000000" cellspacing="1" cellpadding="0">
+          <tr>
+            <td width="100%" bgcolor="#FFFFFF"><font face="Verdana" size="2" color="#000080">Private
+              Sub </font><font face="Verdana" size="2" color="#000000">DX_Exit()<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Call</font><font face="Verdana" size="2" color="#000000">
+              DD_Main.RestoreDisplayMode<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Call</font><font face="Verdana" size="2" color="#000000">
+              DD_Main.SetCooperativeLevel(Me.hWnd, DDSCL_NORMAL)<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Call</font><font face="Verdana" size="2" color="#000000">
+              DI_Device.Unacquire<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#008000">'Restore
+              all the devices<br>
+              <br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">End </font><font face="Verdana" size="2" color="#008000">'Ends
+              the program.<br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub</font></td>
+          </tr>
+        </table>
+        </center>
+      </div>
+      <p align="left"><b><font face="Verdana" color="#000000" size="2">Ok, What
+      makes this program start? The next code! Put this in the 'Form_Load' sub
+      so this all happens when the program starts:</font></b></p>
+      <div align="center">
+        <center>
+        <table border="0" width="87%" bgcolor="#000000" cellspacing="1" cellpadding="0">
+          <tr>
+            <td width="100%" bgcolor="#FFFFFF"><font color="#000080" face="Verdana" size="2">Private
+              Sub </font><font face="Verdana" size="2" color="#000000">Form_Load()<br>
+              &nbsp;Me.Show </font><font face="Verdana" size="2" color="#008000">'Some
+              computers do weird stuff if you don't show the form.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DoEvents
+              </font><font face="Verdana" size="2" color="#008000">'Give the
+              computer time to do what it needs to do<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DX_Init
+              </font><font face="Verdana" size="2" color="#008000">'Initialize
+              DirectX<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DX_MakeObjects
+              </font><font face="Verdana" size="2" color="#008000">'Make frames,
+              lights, and mesh(es)<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DX_Render
+              </font><font face="Verdana" size="2" color="#008000">'The Main
+              Loop<br>
+              &nbsp;'One More Line of code after this!!!<br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub</font></td>
+          </tr>
+        </table>
+        </center>
+      </div>
+      <p align="left"><b><font face="Verdana" color="#000000" size="2">Congratulations!
+      If you actually typed this, and not copy and paste this, you have written
+      your first Direct3D program! Now, Run the program! You should be able to
+      walk around a building using the arrow keys. To escape, just press
+      [esc].&nbsp; Incase you are a slacker, here is the complete code in one
+      table. <a href="#Chapter5">Click here for the next chapter-</a></font></b></p>
+      <div align="center">
+        <center>
+        <table border="0" width="88%" bgcolor="#000000" cellspacing="1" cellpadding="0">
+          <tr>
+            <td width="100%" bgcolor="#FFFFFF"><font color="#008000" face="Verdana" size="2">'General
+              Declarations<br>
+              </font><br>
+              '<font face="Verdana" size="2" color="#008000">These three components
+              are the big daddy of what your 3D Program.&nbsp;<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DX_Main </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000">
+              </font><font face="Verdana" size="2" color="#000080"> New</font><font face="Verdana" size="2" color="#000000"> DirectX7
+              </font><font face="Verdana" size="2" color="#008000">          ' The DirectX core file
+              (The heart of it all)</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DD_Main </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DirectDraw4
+              </font><font face="Verdana" size="2" color="#008000">           ' The
+              DirectDraw Object</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              D3D_Main </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> Direct3DRM3</font><font face="Verdana" size="2" color="#008000">           ' The direct3D
+              Object</font><font face="Verdana" size="2" color="#000000"><br>
+              <br>
+              </font><font face="Verdana" size="2" color="#008000">'DirectInput Components<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DI_Main </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DirectInput
+              </font><font face="Verdana" size="2" color="#008000">           ' The DirectInput
+              core&nbsp;</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DI_Device </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DirectInputDevice
+              </font><font face="Verdana" size="2" color="#008000">   ' The
+              DirectInput device</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DI_State </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DIKEYBOARDSTATE
+              </font><font face="Verdana" size="2" color="#008000">'Array
+              Holding the state of the keys<br>
+              <br>
+              'DirectDraw Surfaces- Where the screen is drawn.<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DS_Front </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DirectDrawSurface4
+              </font><font face="Verdana" size="2" color="#008000">    ' The
+              frontbuffer (What you see on the screen)</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DS_Back </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DirectDrawSurface4
+              </font><font face="Verdana" size="2" color="#008000">    ' The
+              backbuffer, (Where everything is drawn before it's put on the
+              screen.)</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              SD_Front </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DDSURFACEDESC2
+              </font><font face="Verdana" size="2" color="#008000">        ' The
+              SurfaceDescription</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#000000">
+              DD_Back </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#000000"> DDSCAPS2
+              </font><font face="Verdana" size="2" color="#008000">' General
+              Surface Info<br>
+              <br>
+              'ViewPort and Direct3D Device<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">D3D_Device
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMDevice3
+              </font><font face="Verdana" size="2" color="#008000">'The Main
+              Direct3D Retained Mode Device</font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">D3D_ViewPort
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMViewport2
+              </font><font face="Verdana" size="2" color="#008000">'The Direct3D
+              Retained Mode Viewport (Kinda the camera)&nbsp;<br>
+              <br>
+              'The Frames&nbsp;<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">FR_Root
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMFrame3
+              </font><font face="Verdana" size="2" color="#008000">'The Main
+              Frame (The other frames are put under this one (Like a tree))<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">FR_Camera
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMFrame3
+              </font><font face="Verdana" size="2" color="#008000">'Another
+              frame, just happens to be called 'camera'. We will use this<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'as the viewport. Hence, the name camera. Doesn't have to be<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'called 'camera'. It could be called 'BillyBob' for all I
+              care.&nbsp;<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">FR_Light
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMFrame3
+              </font><font face="Verdana" size="2" color="#008000">'This frame contains
+              our, guess what, spotlight!<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">FR_Building
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMFrame3
+              </font><font face="Verdana" size="2" color="#008000">'Frame
+              containing our 1st mesh that will be put in this
+              &quot;game&quot;.&nbsp;<br>
+              <br>
+              'Meshes (3D objects loaded from a .x file)<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">MS_Building
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMMeshBuilder3<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#008000">'Lights<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">LT_Ambient
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMLight
+              </font><font face="Verdana" size="2" color="#008000">'Our Main
+              (Ambient) light that illuminates everything (not just part of
+              something<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'like a spotlight.&nbsp;<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim </font><font face="Verdana" size="2" color="#000000">LT_Spot
+              </font><font face="Verdana" size="2" color="#000080">as </font><font face="Verdana" size="2" color="#000000">Direct3DRMLight
+              </font><font face="Verdana" size="2" color="#008000">'Our Spot
+              light, makes it look more realistic.&nbsp;<br>
+              <br>
+              'Camera Positions<br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000000"> xx</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000080"> Long</font><font face="Verdana" size="2" color="#008000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000000"> yy</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000080"> Long</font><font face="Verdana" size="2" color="#008000"><br>
+              </font><font face="Verdana" size="2" color="#000080">Dim</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000000"> zz</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000080"> As</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000080"> Long<br>
+              <br>
+              Dim </font><font face="Verdana" size="2" color="#000000">esc </font><font face="Verdana" size="2" color="#000080">As
+              Boolean </font><font face="Verdana" size="2" color="#008000">'If
+              Escape is pressed, the DX_Input sub will make it true and the main
+              loop will end.&nbsp;</font><font face="Verdana" size="2" color="#000080"><br>
+              </font><font face="Verdana" size="2" color="#008000">'Incase you haven't
+              caught on, the prefix FR = frame, MS = Mesh, &amp; LT = light.</font>
+              <p><font face="Verdana" size="2" color="#008000">'======================================================================================<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#000080">Private Sub </font><font face="Verdana" size="2" color="#000000">DX_Init()<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#008000">'Type,
+              not copy and paste!<br>
+              &nbsp;'This sub will initialize all your components and set them
+              up.&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">set</font><font face="Verdana" size="2" color="#008000">
+              </font><font face="Verdana" size="2" color="#000000">DD_Main =
+              DX_Main.DirectDraw4Create(&quot;&quot;) </font><font face="Verdana" size="2" color="#008000">'Create
+              the DirectDraw Object<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#000000">&nbsp;DD_Main.SetCooperativeLevel Form1.hWnd, DDSCL_FULLSCREEN
+              </font><font face="Verdana" size="2" color="#000080"> Or</font><font face="Verdana" size="2" color="#000000"> DDSCL_EXCLUSIVE
+              </font><font face="Verdana" size="2" color="#008000">'Set Screen
+              Mode (Full 'Screen)</font><font face="Verdana" size="2" color="#000000"><br>
+              &nbsp;DD_Main.SetDisplayMode 640, 480, 32, 0, DDSDM_DEFAULT </font><font face="Verdana" size="2" color="#008000">'Set
+              Resolution and BitDepth (Lets use 32-bit color)<br>
+              &nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">SD_Front.lFlags = DDSD_CAPS
+              </font><font face="Verdana" size="2" color="#000080"> Or</font><font face="Verdana" size="2" color="#000000"> DDSD_BACKBUFFERCOUNT<br>
+              &nbsp;SD_Front.ddsCaps.lCaps = DDSCAPS_PRIMARYSURFACE Or DDSCAPS_3DDEVICE Or DDSCAPS_COMPLEX
+              OR _<br>
+              &nbsp;DDSCAPS_FLIP </font><font face="Verdana" size="2" color="#008000">'I
+              used the line-continuation ( _ ) because the whole thing wouldn't
+              fit on one line...</font><font face="Verdana" size="2" color="#000000"><br>
+              &nbsp;SD_Front.lBackBufferCount = 1 '</font><font face="Verdana" size="2" color="#008000">Make
+              one backbuffer&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              DS_Front = DD_Main.CreateSurface(SD_Front) </font><font face="Verdana" size="2" color="#008000">'Initialize
+              the front buffer (the screen)<br>
+              &nbsp;'The Previous block of code just created the screen and the
+              backbuffer.&nbsp;<br>
+              &nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DD_Back.lCaps = DDSCAPS_BACKBUFFER<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              DS_Back = DS_Front.GetAttachedSurface(DD_Back)<br>
+              &nbsp;DS_Back.SetForeColor RGB(255, 255, 255)<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#008000">'The
+              backbuffer was initialized and the DirectDraw text color was set
+              to white.&nbsp;<br>
+              <br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              D3D_Main = DX_Main.Direct3DRMCreate() </font><font face="Verdana" size="2" color="#008000">'Creates
+              the Direct3D Retained Mode Object!!!!!<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#000000">&nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              D3D_Device =
+              D3D_Main.CreateDeviceFromSurface(&quot;IID_IDirect3DHALDevice&quot;,
+              DD_Main, DS_Back, _<br>
+              &nbsp;D3DRMDEVICE_DEFAULT) </font><font face="Verdana" size="2" color="#008000">'Tell
+              the Direct3D Device that we are using hardware rendering
+              (HALDevice) instead<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'of software enumeration (RGBDevice).<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">D3D_Device.SetBufferCount 2</font><font face="Verdana" size="2" color="#008000">
+              'Set the number of buffers<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">D3D_Device.SetQuality D3DRMRENDER_GOURAUD
+              </font><font face="Verdana" size="2" color="#008000">'Set
+              Rendering Quality. Can use Flat, or WireFrame, but<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'GOURAUD has the best rendering quality.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">D3D_</font><font color="#000000"><font face="Verdana" size="2">Device.SetTextureQuality D3DRMTEXTURE_NEAREST</font><font face="Verdana" size="2">
+              </font></font><font face="Verdana" size="2" color="#008000">'Set
+              the texture quality<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">D3D_</font><font face="Verdana" size="2" color="#000000">Device.SetRenderMode D3DRMRENDERMODE_BLENDEDTRANSPARENCY
+              </font><font face="Verdana" size="2" color="#008000">'Set the
+              render mode.<br>
+              <br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">Set
+              DI_Main = DX_Main.DirectInputCreate() </font><font face="Verdana" size="2" color="#008000">'Create
+              the DirectInput Device<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">Set
+              DI_Device = DI_Main.CreateDevice(&quot;GUID_SysKeyboard&quot;) </font><font face="Verdana" size="2" color="#008000">'Set
+              it to use the keyboard.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DI_Device.SetCommonDataFormat DIFORMAT_KEYBOARD
+              </font><font face="Verdana" size="2" color="#008000">'Set the data
+              format to the keyboard format.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DI_Device.SetCooperativeLevel Me.hWnd, DISCL_BACKGROUND Or DISCL_NONEXCLUSIVE
+              </font><font face="Verdana" size="2" color="#008000">'Set
+              Coperative Level.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DI_Device.Acquire<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#008000">'The
+              above block of code configures the DirectInput Device and starts
+              it.<br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#008000">'=====================================================================================<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#000080">Private Sub </font><font face="Verdana" size="2" color="#000000">DX_MakeObjects()<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set </font><font face="Verdana" size="2" color="#000000">FR_Root
+              = D3D_Main.CreateFrame(</font><font face="Verdana" size="2" color="#000080">Nothing</font><font face="Verdana" size="2" color="#000000">)
+              </font><font face="Verdana" size="2" color="#008000">'This will be
+              the root frame of the 'tree'<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set </font><font face="Verdana" size="2" color="#000000">FR_Camera
+              = D3D_Main.CreateFrame(FR_Root) </font><font face="Verdana" size="2" color="#008000">'Our
+              Camera's Sub Frame. It goes under FR_Root in the 'Tree'.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set </font><font face="Verdana" size="2" color="#000000">FR_Light
+              = D3D_Main.CreateFrame(FR_Root) </font><font face="Verdana" size="2" color="#008000">'Our
+              Light's Sub Frame<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set </font><font face="Verdana" size="2" color="#000000">FR_Building
+              = D3D_Main.CreateFrame(FR_Root) </font><font face="Verdana" size="2" color="#008000">'Our
+              Building (the 3D Thingy that will be placed in our world's)&nbsp;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              ' sub frame.&nbsp;<br>
+              &nbsp;'That above code set up the hierarchy of frames where
+              FR_Root is the parent, and the other frames are all&nbsp;<br>
+              &nbsp;'owned by it.<br>
+              &nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">FR_Root.SetSceneBackgroundRGB
+              0, 0, 1 </font><font face="Verdana" size="2" color="#008000">'Set
+              the background color. Use decimals, not the standerd 255 = max.<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'What I have here will make the background/sky 100% blue.&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">FR_Camera.SetPosition Nothing,
+              1, 4, -35 </font><font face="Verdana" size="2" color="#008000">'Set
+              The Camera position; X=1, Y=4, z=-35.&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">Set
+              D3D_Viewport = D3D_Main.CreateViewport(D3D_Device, FR_Camera, 0, 0, 640, 480)
+              </font><font face="Verdana" size="2" color="#008000">'Make our
+              viewport and set&nbsp;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'it our camera to be it.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">D3D_Viewport.SetBack
+              200 </font><font face="Verdana" size="2" color="#008000">'How far
+              back it will draw the image. (Kinda like a visibility limit)<br>
+              &nbsp;&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">FR_Light.SetPosition Nothing, 0, 25, 0
+              </font><font face="Verdana" size="2" color="#008000">'Set our
+              'point' light.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              LT_Spot = D3D_Main.CreateLightRGB(D3DRMLIGHT_POINT, 1, 1, 1) </font><font face="Verdana" size="2" color="#008000">'Set
+              the light type and it's color.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">FR_Light.AddLight</font><font face="Verdana" size="2" color="#008000">
+              LT_Spot 'Add the light to it's frame.<br>
+              &nbsp;&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              LT_Ambient = D3D_Main.CreateLightRGB(D3DRMLIGHT_AMBIENT, 0.5, 0.5, 0.5)
+              </font><font face="Verdana" size="2" color="#008000">'Create our
+              ambient light.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">FR_Root.AddLight
+              LT_Ambient </font><font face="Verdana" size="2" color="#008000">'Add
+              the ambient light to the root frame.<br>
+              <br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Set</font><font face="Verdana" size="2" color="#000000">
+              MS_Building = D3D_Main.CreateMeshBuilder() </font><font face="Verdana" size="2" color="#008000">'Make
+              the 3D Building Mesh<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">MS_Building.LoadFromFile
+              app.path &amp; &quot;\building.x&quot;,0 ,0 ,</font><font face="Verdana" size="2" color="#000080">nothing</font><font face="Verdana" size="2" color="#000000">
+              ,</font><font face="Verdana" size="2" color="#000080">nothing </font><font face="Verdana" size="2" color="#008000">'Load
+              our building mesh from its .X file.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">MS_Building.ScaleMesh
+              1, 1, 1 </font><font face="Verdana" size="2" color="#008000">'Set
+              the it's scale. This is used to make the object smaller or bigger.
+              1 makes<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              'it the same size as it was built in whatever program it was built
+              in.&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">FR_Building.AddVisual
+              MS_Building </font><font face="Verdana" size="2" color="#008000">'Add
+              the 3D Building mesh to it's frame.&nbsp;<br>
+              </font><font face="Verdana" size="2" color="#000000"><br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub</font><font face="Verdana" size="2" color="#000000">&nbsp;&nbsp;</font></p>
+              <p><font face="Verdana" size="2" color="#008000">'=====================================================================================<br>
+              <br>
+              </font><font color="#000080" face="Verdana" size="2">Private Sub </font><font face="Verdana" size="2" color="#000000">DX_Render()<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#008000">'Lets
+              put our main loop. Make it loop until esc = true (I'll explain
+              later)<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Do
+              While </font><font face="Verdana" size="2" color="#000000">esc = </font><font face="Verdana" size="2" color="#000080">False<br>
+              &nbsp;&nbsp; On local error resume next </font><font face="Verdana" size="2" color="#008000">'Incase
+              there is an error<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000080">DoEvents
+              </font><font face="Verdana" size="2" color="#008000">'Give the
+              computer time to do what it needs to do.&nbsp;<br>
+              &nbsp;&nbsp;&nbsp;<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">DX_Input
+              </font><font face="Verdana" size="2" color="#008000">'Call the
+              input sub.&nbsp;<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">D3D_Viewport.Clear D3DRMCLEAR_TARGET Or D3DRMCLEAR_ZBUFFER</font><font face="Verdana" size="2" color="#008000">
+              'Clear your viewport.&nbsp;<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">D3D_Device.Update</font><font face="Verdana" size="2" color="#008000">
+              'Update the Direct3D Device.&nbsp;<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">D3D_</font><font face="Verdana" size="2" color="#000000">Viewport.Render
+              FR_Root</font><font face="Verdana" size="2" color="#008000">
+              'Render the 3D Objects (lights, and your building!)<br>
+              &nbsp;&nbsp;</font><font face="Verdana" size="2" color="#000000">
+              DS_Back.DrawText 200, 0, &quot;My First Direct3D Program!&quot;, False
+              </font><font face="Verdana" size="2" color="#008000">'Draw some
+              text!&nbsp;<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">DS_Front.Flip Nothing, DDFLIP_WAIT</font><font face="Verdana" size="2" color="#008000">
+              'Flip the back buffer with the front buffer.&nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Loop<br>
+              End Sub<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#008000">'=====================================================================================<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#000080">Private Sub </font><font face="Verdana" size="2" color="#000000">DX_Input()<br>
+              &nbsp;DI_Device.GetDeviceStateKeyboard DI_State </font><font face="Verdana" size="2" color="#008000">'Get
+              the array of keyboard keys and their current states<br>
+              &nbsp;&nbsp;</font><font face="Verdana" size="2" color="#000080"><br>
+              &nbsp;If</font><font face="Verdana" size="2" color="#000000">
+              DI_State.Key(DIK_ESCAPE) &lt;> 0 </font><font face="Verdana" size="2" color="#000080"> Then</font><font face="Verdana" size="2" color="#000000">
+              </font><font face="Verdana" size="2" color="#000080"> Call</font><font face="Verdana" size="2" color="#000000"> DX_Exit</font><font face="Verdana" size="2" color="#008000">
+              'If user presses [esc] then exit end the program.<br>
+              &nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">If </font><font face="Verdana" size="2" color="#000000">DI_State.Key(DIK_LEFT)
+              &lt;&gt; 0 </font><font face="Verdana" size="2" color="#000080">Then
+              </font><font face="Verdana" size="2" color="#008000">'Quick Note:
+              &lt;&gt; means 'does not'</font><font face="Verdana" size="2" color="#000080"><br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">FR_Camera.SetPosition
+              </font><font face="Verdana" size="2" color="#000000">FR_Camera</font><font face="Verdana" size="2" color="#000000">,
+              -1, 0, 0 </font><font face="Verdana" size="2" color="#008000">'Move
+              the viewport to the left<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">end if<br>
+              &nbsp;<br>
+              &nbsp;If </font><font face="Verdana" size="2" color="#000000">DI_State.Key(DIK_RIGHT)
+              &lt;&gt; 0 </font><font face="Verdana" size="2" color="#000080">Then<br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">FR_Camera.SetPosition
+              </font><font face="Verdana" size="2" color="#000000">FR_Camera</font><font face="Verdana" size="2" color="#000000">,
+              1, 0, 0 </font><font face="Verdana" size="2" color="#008000">'Move
+              the viewport to the right<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">End If<br>
+              &nbsp;<br>
+              &nbsp;If </font><font face="Verdana" size="2" color="#000000">DI_State.Key(DIK_UP)
+              &lt;&gt; 0 </font><font face="Verdana" size="2" color="#000080">Then</font><font face="Verdana" size="2" color="#008000"><br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">FR_Camera.SetPosition
+              FR_Camera, 0, 0, 1 </font><font face="Verdana" size="2" color="#008000">'Move
+              the viewport forward<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">End If<br>
+              <br>
+              &nbsp;If </font><font face="Verdana" size="2" color="#000000">DI_State.Key(DIK_DOWN)
+              &lt;&gt; 0 </font><font face="Verdana" size="2" color="#000080">then</font><font face="Verdana" size="2" color="#000000">&nbsp;<br>
+              &nbsp;&nbsp; FR_Camera.SetPosition FR_Camera, 0, 0, -1 </font><font face="Verdana" size="2" color="#008000">'Move
+              the viewport back<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">End If</font><font face="Verdana" size="2" color="#008000">&nbsp;&nbsp;<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#008000">'=====================================================================================<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#000080">Private Sub </font><font face="Verdana" size="2" color="#000000">DX_Exit()<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Call</font><font face="Verdana" size="2" color="#000000">
+              DD_Main.RestoreDisplayMode<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Call</font><font face="Verdana" size="2" color="#000000">
+              DD_Main.SetCooperativeLevel(Me.hWnd, DDSCL_NORMAL)<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080"> Call</font><font face="Verdana" size="2" color="#000000">
+              DI_Device.Unacquire<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#008000">'Restore
+              all the devices<br>
+              <br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">End </font><font face="Verdana" size="2" color="#008000">'Ends
+              the program.<br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub<br>
+              <br>
+              </font><font face="Verdana" size="2" color="#008000">'=====================================================================================<br>
+              <br>
+              </font><font color="#000080" face="Verdana" size="2">Private Sub </font><font face="Verdana" size="2" color="#000000">Form_Load()<br>
+              &nbsp;Me.Show </font><font face="Verdana" size="2" color="#008000">'Some
+              computers do weird stuff if you don't show the form.<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DoEvents
+              </font><font face="Verdana" size="2" color="#008000">'Give the
+              computer time to do what it needs to do<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DX_Init
+              </font><font face="Verdana" size="2" color="#008000">'Initialize
+              DirectX<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DX_MakeObjects
+              </font><font face="Verdana" size="2" color="#008000">'Make frames,
+              lights, and mesh(es)<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000000">DX_Render
+              </font><font face="Verdana" size="2" color="#008000">'The Main
+              Loop<br>
+              &nbsp;'One More Line of code after this!!!<br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub</font></td>
+          </tr>
+        </table>
+        </center>
+      </div>
+      <p align="left"><b><font face="Verdana" color="#000000" size="5"><a name="Chapter5">Chapter
+      5: Making it better</a></font><font face="Verdana" color="#000000" size="2"><br>
+      <br>
+      You probably noticed that when you move right or left, the camera moves
+      right or left, but doesn't rotate. To fix this problem, change the
+      DX_Input sub code to the following:</font></b></p>
+      <div align="center">
+        <center>
+        <table border="0" width="88%" bgcolor="#000000" cellspacing="1" cellpadding="0">
+          <tr>
+            <td width="100%" bgcolor="#FFFFFF"><font face="Verdana" size="2" color="#000080">Private
+              Sub </font><font face="Verdana" size="2" color="#000000">DX_Input()<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Const</font><font face="Verdana" size="2" color="#000000"> Sin5 = 8.715574E-02!
+              </font><font face="Verdana" size="2" color="#008000">  ' Sin(5°)</font><font face="Verdana" size="2" color="#000000"><br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">Const</font><font face="Verdana" size="2" color="#000000"> Cos5 = 0.9961947!
+              </font><font face="Verdana" size="2" color="#008000">     ' Cos(5°)</font><font face="Verdana" size="2" color="#000000"><br>
+              &nbsp;<br>
+              &nbsp;DI_Device.GetDeviceStateKeyboard DI_State </font><font face="Verdana" size="2" color="#008000">'Get
+              the array of keyboard keys and their current states<br>
+              &nbsp;&nbsp;</font><font face="Verdana" size="2" color="#000080"><br>
+              &nbsp;If</font><font face="Verdana" size="2" color="#000000">
+              DI_State.Key(DIK_ESCAPE) &lt;> 0 </font><font face="Verdana" size="2" color="#000080"> Then</font><font face="Verdana" size="2" color="#000000">
+              </font><font face="Verdana" size="2" color="#000080"> Call</font><font face="Verdana" size="2" color="#000000"> DX_Exit</font><font face="Verdana" size="2" color="#008000">
+              'If user presses [esc] then exit end the program.<br>
+              &nbsp;<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">If </font><font face="Verdana" size="2" color="#000000">DI_State.Key(DIK_LEFT)
+              &lt;&gt; 0 </font><font face="Verdana" size="2" color="#000080">Then
+              </font><font face="Verdana" size="2" color="#008000">'Quick Note:
+              &lt;&gt; means 'does not'</font><font face="Verdana" size="2" color="#000080"><br>
+              &nbsp;&nbsp; </font><font size="2" face="Verdana" color="#000000">FR_Camera.SetOrientation
+              FR_Camera, -Sin5, 0, Cos5, 0, 1, 0 </font><font size="2" face="Verdana" color="#008000">'Rotate
+              viewport/camera left<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">end if<br>
+              &nbsp;<br>
+              &nbsp;If </font><font face="Verdana" size="2" color="#000000">DI_State.Key(DIK_RIGHT)
+              &lt;&gt; 0 </font><font face="Verdana" size="2" color="#000080">Then<br>
+              &nbsp;&nbsp; </font><font size="2" face="Verdana" color="#000000">FR_Camera.SetOrientation
+              FR_Camera, Sin5, 0, Cos5, 0, 1, 0 </font><font size="2" face="Verdana" color="#008000">'Rotate
+              viewport/camera right<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">End If<br>
+              &nbsp;<br>
+              &nbsp;If </font><font face="Verdana" size="2" color="#000000">DI_State.Key(DIK_UP)
+              &lt;&gt; 0 </font><font face="Verdana" size="2" color="#000080">Then</font><font face="Verdana" size="2" color="#008000"><br>
+              &nbsp;&nbsp; </font><font face="Verdana" size="2" color="#000000">FR_Camera.SetPosition
+              FR_Camera, 0, 0, 1 </font><font face="Verdana" size="2" color="#008000">'Move
+              the viewport forward<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">End If<br>
+              <br>
+              &nbsp;If </font><font face="Verdana" size="2" color="#000000">DI_State.Key(DIK_DOWN)
+              &lt;&gt; 0 </font><font face="Verdana" size="2" color="#000080">then</font><font face="Verdana" size="2" color="#000000">
+              <br>
+              &nbsp;&nbsp; FR_Camera.SetPosition FR_Camera, 0, 0, -1 </font><font face="Verdana" size="2" color="#008000">'Move
+              the viewport back<br>
+              &nbsp;</font><font face="Verdana" size="2" color="#000080">End If</font><font face="Verdana" size="2" color="#008000">&nbsp;
+              <br>
+              <br>
+              </font><font face="Verdana" size="2" color="#000080">End Sub</font></td>
+          </tr>
+        </table>
+        </center>
+      </div>
+      <p align="left"><b><font face="Verdana" size="2">You also might want
+      collision detection (So you can't walk through walls). But I don't know
+      how to yet, so you won't either! HahahA!<br>
+      <br>
+      Ok, if you liked this tutorial, PLEASE vote for me at PSC!</font></b><font face="Verdana" size="2"><br>
+      </font></td>
+  </tr>
+</table>
+
+</body>
+
+</html>
